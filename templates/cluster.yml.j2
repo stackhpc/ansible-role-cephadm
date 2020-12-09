@@ -1,3 +1,18 @@
+{% for host in groups['mons'] %}
+---
+service_type: host
+hostname: {{ host }}.cloud.um6p.ma
+labels:
+- mon
+- mgr
+{% endfor %}
+{% for host in groups['osds'] %}
+---
+service_type: host
+hostname: {{ host }}.cloud.um6p.ma
+labels:
+- osd
+{% endfor %}
 ---
 service_type: mon
 placement:
@@ -10,18 +25,3 @@ placement:
 service_type: crash
 placement:
   host_pattern: "*"
-{% for host in groups['mons'] %}
----
-service_type: host
-hostname: {{ host }}
-labels:
-- mon
-- mgr
-{% endfor %}
-{% for host in groups['osds'] %}
----
-service_type: host
-hostname: {{ host }}
-labels:
-- osd
-{% endfor %}

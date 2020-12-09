@@ -1,20 +1,20 @@
 ---
 cephadm_skip_prechecks: false
 # FSID
-cephadm_fsid: "4aaf9419-b281-4672-9f6d-2f549ac7c774"
+#cephadm_fsid: "4aaf9419-b281-4672-9f6d-2f549ac7c774"
 # Recreate cluster
 cephadm_recreate: false
 # Packages
-cephadm_custom_repos: true
+cephadm_custom_repos: false
 # Registry
 cephadm_registry_url: ""
 cephadm_registry_username: ""
 cephadm_registry_password: ""
 # Bootstrap settings
-cephadm_enable_dashboard: false
-cephadm_enable_firewalld: false
-cephadm_enable_monitoring: false
-cephadm_install_ceph_cli: false
+cephadm_enable_dashboard: true
+cephadm_enable_firewalld: true
+cephadm_enable_monitoring: true
+cephadm_install_ceph_cli: true
 cephadm_ssh_public_key: "/etc/ceph/cephadm.pub"
 cephadm_ssh_private_key: "/etc/ceph/cephadm.id"
 # Networking
