@@ -74,5 +74,20 @@
     when: cephadm_osd_devices | length > 0
     with_items: "{{ cephadm_osd_devices }}"
 
+  # TODO hard coded!
+  - name: Template out cluster.yml
+    template:
+      src: "templates/osd_spec.yml.j2"
+      dest: "/var/run/ceph/{{ cephadm_fsid }}/osd_spec.yml"
+    become: true
+    run_once: True
+
+  - name: Apply OSDs
+    command:
+      cmd: >
+           cephadm shell --
+           ceph orch apply osd -i /var/run/ceph/osd_spec.yml
+    become: true
+
   delegate_to: "{{ groups['mons'][0] }}"
   run_once: True
