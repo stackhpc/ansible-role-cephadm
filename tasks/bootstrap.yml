@@ -89,5 +89,12 @@
            ceph orch apply osd -i /var/run/ceph/osd_spec.yml
     become: true
 
+  - name: Add RGW
+    command:
+      cmd: >
+           cephadm shell --
+           ceph orch apply rgw um6p hpc --placement="3 label:mon"
+    become: true
+
   delegate_to: "{{ groups['mons'][0] }}"
   run_once: True
