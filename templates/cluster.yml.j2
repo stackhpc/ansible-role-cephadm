@@ -1,17 +1,17 @@
-{% for host in groups['mons'] %}
+{% for host in groups['ceph'] %}
 ---
 service_type: host
-hostname: {{ host }}.cloud.um6p.ma
+hostname: {{ host }}
 labels:
+{% if host in groups['mons'] %}
 - mon
+{% endif %}
+{% if host in groups['mgrs'] %}
 - mgr
-{% endfor %}
-{% for host in groups['osds'] %}
----
-service_type: host
-hostname: {{ host }}.cloud.um6p.ma
-labels:
+{% endif %}
+{% if host in groups['osds'] %}
 - osd
+{% endif %}
 {% endfor %}
 ---
 service_type: mon

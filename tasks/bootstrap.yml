@@ -67,34 +67,5 @@
     become: true
     when: cephadm_install_ceph_cli
 
-  - name: Add OSDs
-    command:
-      cmd: "cephadm daemon add osd {{ ansible_hostname }}:{{ item }}"
-    become: true
-    when: cephadm_osd_devices | length > 0
-    with_items: "{{ cephadm_osd_devices }}"
-
-  # TODO hard coded!
-  - name: Template out cluster.yml
-    template:
-      src: "templates/osd_spec.yml.j2"
-      dest: "/var/run/ceph/{{ cephadm_fsid }}/osd_spec.yml"
-    become: true
-    run_once: True
-
-  - name: Apply OSDs
-    command:
-      cmd: >
-           cephadm shell --
-           ceph orch apply osd -i /var/run/ceph/osd_spec.yml
-    become: true
-
-  - name: Add RGW
-    command:
-      cmd: >
-           cephadm shell --
-           ceph orch apply rgw um6p hpc --placement="3 label:mon"
-    become: true
-
   delegate_to: "{{ groups['mons'][0] }}"
   run_once: True
