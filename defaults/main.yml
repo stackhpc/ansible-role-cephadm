@@ -24,4 +24,14 @@ cephadm_public_network: "{{ storage_net_cidr }}"
 cephadm_cluster_network: "{{ storage_net_cidr }}"
 # OSDs
 cephadm_osd_devices: []
-cephadm_osd_spec: []
+cephadm_osd_spec: |
+    ---
+    service_type: osd
+    service_id: osd_spec_default
+    placement:
+      label: "osd"
+    data_devices:
+      rotational: 1
+    db_devices:
+      rotational: 0
+      size: '1TB:'
